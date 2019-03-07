@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 3.5)
 project(instancesegm)
 
+
+
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
 
 # Eigen
@@ -10,6 +12,8 @@ if (EIGEN_FOUND)
     message("-- Found Eigen version ${EIGEN_VERSION}: ${EIGEN_INCLUDE_DIRS}")
 endif (EIGEN_FOUND)
 
+SET(OpenCV_DIR "/usr/local/pyenv/versions/miniconda3-3.9.1/share/OpenCV")
+INCLUDE_DIRECTORIES("/usr/local/pyenv/versions/miniconda3-3.9.1/include/")
 find_package( OpenCV REQUIRED )
 find_package(Boost 1.45.0 COMPONENTS filesystem regex program_options)
 find_package(OpenMP)
@@ -25,4 +29,4 @@ include_directories(SYSTEM ${EIGEN_INCLUDE_DIRS} ${Boost_INCLUDE_DIRS})
 
 set(SOURCE_FILES main.cpp core.cpp core.h)
 add_executable(instancesegm ${SOURCE_FILES})
-target_link_libraries (instancesegm ${OpenCV_LIBS} ${Boost_LIBRARIES})
+target_link_libraries (instancesegm PUBLIC m ${OpenCV_LIBS} ${Boost_LIBRARIES})
